@@ -1,3 +1,6 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export function formatMessageTime(date) {
   try {
     if (!date) return "";
@@ -12,4 +15,8 @@ export function formatMessageTime(date) {
     console.error("Error formatting message time:", error);
     return "";
   }
+}
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
 }

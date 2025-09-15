@@ -3,6 +3,9 @@ import assets from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
+// import { ShinyButton } from "./ui/ShinyText";
+import { cn } from "../lib/utils";
+import { ShinyButton } from "./ui/ShinyButton";
 
 const Sidebar = () => {
   const {
@@ -77,7 +80,24 @@ const Sidebar = () => {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
+        <ShinyButton
+          className="flex items-center gap-2 p-2 rounded-full cursor-pointer text-lg max-sm:text-sm border-2 border-gray-600 "
+          textClassName="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          // onClick={() => {
+          //   // Define a special AI user object
+          //   const aiUser = {
+          //     _id: "vaani-ai",
+          //     fullName: "Vaani AI",
+          //     profilePic: assets.logo,
+          //     isAI: true,
+          //   };
+          //   setSelectedUser(aiUser);
+          // }}
+        >
+          Ask Vaani AI
+        </ShinyButton>
+
         {sortedUsers.map((user, index) => (
           <div
             onClick={() => {

@@ -12,7 +12,7 @@ const App = () => {
   if (loading) return <div className="text-center p-10">Loading...</div>;
 
   return (
-    <div className="bg-[url('/bgImage.svg')] bg-contain ">
+    <div className="bg-[url('/bgImage.svg')] bg-cover bg-no-repeat ">
       <Toaster />
       <Routes>
         <Route
