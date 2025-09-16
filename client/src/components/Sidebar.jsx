@@ -84,16 +84,6 @@ const Sidebar = () => {
         <ShinyButton
           className="flex items-center gap-2 p-2 rounded-full cursor-pointer text-lg max-sm:text-sm border-2 border-gray-600 "
           textClassName="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-          // onClick={() => {
-          //   // Define a special AI user object
-          //   const aiUser = {
-          //     _id: "vaani-ai",
-          //     fullName: "Vaani AI",
-          //     profilePic: assets.logo,
-          //     isAI: true,
-          //   };
-          //   setSelectedUser(aiUser);
-          // }}
         >
           Ask Vaani AI
         </ShinyButton>
