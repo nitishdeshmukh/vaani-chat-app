@@ -36,7 +36,7 @@ const LoginPage = () => {
       </div>
       <form
         onSubmit={onSubmitHandler}
-        className="border-2 bg-white/8 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg"
+        className="border-2 bg-white/8 text-white border-gray-600 p-6 flex flex-col gap-6 rounded-lg shadow-lg"
       >
         <h2 className="font-medium text-2xl flex justify-between items-center">
           {currState}
@@ -58,7 +58,7 @@ const LoginPage = () => {
             onChange={(e) => setFullName(e.target.value)}
             value={fullName}
             autoComplete="name"
-            className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="p-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 placeholder:text-neutral-100"
             placeholder="Full Name"
             required
           />
@@ -73,7 +73,7 @@ const LoginPage = () => {
               autoComplete="email"
               placeholder="Email Address"
               required
-              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 placeholder:text-neutral-100"
             />
             <input
               onChange={(e) => setPassword(e.target.value)}
@@ -84,7 +84,7 @@ const LoginPage = () => {
               }
               placeholder="Password"
               required
-              className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p-2 border border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600 placeholder:text-neutral-100"
             />
           </>
         )}
@@ -95,7 +95,7 @@ const LoginPage = () => {
             value={bio}
             rows={4}
             placeholder="Provide a short bio.."
-            className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 opacity-80"
+            className="p-2 border border-[#CBD5E11A] rounded-md focus:outline-none focus:ring-2 focus:ring-violet-600/20 opacity-80"
           ></textarea>
         )}
 
@@ -106,21 +106,21 @@ const LoginPage = () => {
           {currState === "Sign Up" ? "Create Account" : "Login"}
         </button>
 
-        <div className="flex items-center gap-2 text-sm text-gray-500">
+        <div className="flex items-center gap-2 text-sm text-gray-50">
           <input type="checkbox" />
           <p>I Agree to the terms of use & privacy policy</p>
         </div>
 
         <div className="flex flex-col gap-2">
           {currState === "Sign Up" ? (
-            <p className="text-sm text-gray-600">
-              Already have an account?
+            <p className="text-sm text-gray-50">
+              Already have an account?{" "}
               <span
                 onClick={() => {
                   setCurrState("Login");
                   setIsDataSubmitted(false);
                 }}
-                className="font-medium text-violet-500 cursor-pointer"
+                className="font-medium text-purple-400/90 cursor-pointer"
               >
                 Login here
               </span>

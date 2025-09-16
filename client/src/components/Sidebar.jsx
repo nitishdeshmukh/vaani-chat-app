@@ -6,6 +6,7 @@ import { ChatContext } from "../../context/ChatContext";
 // import { ShinyButton } from "./ui/ShinyText";
 import { cn } from "../lib/utils";
 import { ShinyButton } from "./ui/ShinyButton";
+import { AuroraText } from "./ui/AuroraText";
 
 const Sidebar = () => {
   const {
@@ -69,7 +70,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#282143] rounded-full flex items-center gap-2 py-3 px-4 mt-5">
+        <div className="bg-[#282143] rounded-full flex items-center gap-2 py-4 px-4 mt-5">
           <img src={assets.search_icon} alt="search" className="w-3" />
           <input
             onChange={(e) => setInput(e.target.value)}
@@ -81,12 +82,22 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <ShinyButton
-          className="flex items-center gap-2 p-2 rounded-full cursor-pointer text-lg max-sm:text-sm border-2 border-gray-600 "
-          textClassName="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+        <AuroraText
+          className="font-semibold p-2 rounded-full cursor-pointer text-base max-sm:text-sm border-2 border-gray-600 text-center"
+          colors={["#8B5CF6", "#A78BFA", "#06B6D4", "#3B82F6"]}
+          speed={1.75}
+          onClick={() => {
+            const aiUser = {
+              _id: "vaani-ai",
+              fullName: "Vaani AI",
+              profilePic: assets.logo,
+              isAI: true,
+            };
+            setSelectedUser(aiUser);
+          }}
         >
           Ask Vaani AI
-        </ShinyButton>
+        </AuroraText>
 
         {sortedUsers.map((user, index) => (
           <div
