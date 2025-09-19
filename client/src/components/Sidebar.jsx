@@ -3,10 +3,6 @@ import assets from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
-// import { ShinyButton } from "./ui/ShinyText";
-import { cn } from "../lib/utils";
-import { ShinyButton } from "./ui/ShinyButton";
-import { AuroraText } from "./ui/AuroraText";
 
 const Sidebar = () => {
   const {
@@ -18,8 +14,7 @@ const Sidebar = () => {
     setUnseenMessages,
   } = useContext(ChatContext);
   const { logout, onlineUsers } = useContext(AuthContext);
-
-  const [input, setInput] = useState(false);
+  const [input, setInput] = useState("");
 
   const navigate = useNavigate();
 
@@ -29,14 +24,6 @@ const Sidebar = () => {
       )
     : users;
 
-  // Sort users by lastMessageAt (descending)
-  const sortedUsers = [...filteredUsers].sort((a, b) => {
-    if (!a.lastMessageAt && !b.lastMessageAt) return 0;
-    if (!a.lastMessageAt) return 1;
-    if (!b.lastMessageAt) return -1;
-    return new Date(b.lastMessageAt) - new Date(a.lastMessageAt);
-  });
-
   useEffect(() => {
     getUsers();
   }, [onlineUsers]);
@@ -44,17 +31,18 @@ const Sidebar = () => {
   return (
     <div
       className={`bg-[#8185B2]/10 h-full p-5 rounded-r-xl overflow-y-scroll text-white ${
-        selectedUser ? "max:md-hidden" : ""
+        selectedUser ? "max-md:hidden" : ""
       }`}
     >
-      <div className="pb-5">
+      {/* Header */}
+      <div className="pd-5">
         <div className="flex justify-between items-center">
           <img src={assets.logo} alt="logo" className="max-w-20" />
           <div className="relative py-2 group">
             <img
               src={assets.menu_icon}
-              alt="Menu"
-              className="max-h-5 cursor-pointer"
+              alt="menu"
+              className="max-w-4 cursor-pointer"
             />
             <div className="absolute top-full right-0 z-20 w-32 p-5 rounded-md bg-[#282142] border border-gray-600 text-gray-100 hidden group-hover:block">
               <p
@@ -70,57 +58,47 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#282143] rounded-full flex items-center gap-2 py-4 px-4 mt-5">
-          <img src={assets.search_icon} alt="search" className="w-3" />
+
+        {/* Search Bar */}
+        <div className="bg-[#282142] rounded-full flex items-center gap-2 py-3 px-4 mt-5">
+          <img src={assets.search_icon} alt="Search" className="w-3" />
           <input
+            value={input}
             onChange={(e) => setInput(e.target.value)}
             type="text"
             className="bg-transparent border-none outline-none text-white text-xs placeholder-[#c8c8c8] flex-1"
-            placeholder="Search User..."
+            placeholder="Search User...."
           />
         </div>
       </div>
 
-      <div className="flex flex-col gap-2">
-        {/* <AuroraText
-          className="font-semibold p-2 rounded-full cursor-pointer text-base max-sm:text-sm border-2 border-gray-600 text-center"
-          colors={["#8B5CF6", "#A78BFA", "#06B6D4", "#3B82F6"]}
-          speed={1.75}
-          onClick={() => {
-            const aiUser = {
-              _id: "vaani-ai",
-              fullName: "Vaani AI",
-              profilePic: assets.logo,
-              isAI: true,
-            };
-            setSelectedUser(aiUser);
-          }}
-        >
-          Ask Vaani AI
-        </AuroraText> */}
-
-        {sortedUsers.map((user, index) => (
+      {/* Users List */}
+      <div className="flex flex-col mt-4">
+        {filteredUsers.map((user, index) => (
           <div
+            key={index}
             onClick={() => {
               setSelectedUser(user);
+              setUnseenMessages((prev) => ({ ...prev, [user._id]: 0 }));
             }}
             className={`relative flex items-center gap-2 p-2 pl-4 rounded cursor-pointer max-sm:text-sm ${
-              selectedUser?._id === user._id && "bg-[#282142]/50"
+              selectedUser?._id === user._id ? "bg-[#282142]/50" : ""
             }`}
           >
             <img
-              src={user?.profilePic || assets.avatar_icon}
+              src={user.profilePic || assets.avatar_icon}
               alt=""
-              className="w-[35px] aspect-square rounded-full"
+              className="w-[35px] aspect-[1/1] rounded-full"
             />
             <div className="flex flex-col leading-5">
               <p>{user.fullName}</p>
-              {onlineUsers.includes(user._id) ? (
+              {onlineUsers.includes(user._id.toString()) ? (
                 <span className="text-green-400 text-xs">Online</span>
               ) : (
                 <span className="text-neutral-400 text-xs">Offline</span>
               )}
             </div>
+
             {unseenMessages[user._id] > 0 && (
               <p className="absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500/50">
                 {unseenMessages[user._id]}
