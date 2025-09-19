@@ -6,10 +6,10 @@ A MERN‑stack (MongoDB, Express, React, Node.js) real-time chat application bui
 
 ## Highlights
 
-- **Tech Stack**: MERN + Socket.io + TailwindCSS + DaisyUI
+- **Tech Stack**: MERN + Socket.io + TailwindCSS
 - **Authentication**: Secure user registration, login, and JWT‑based authorization&#x20;
 - **Real-Time Messaging**: Instant chat powered by Socket.io, complete with online/offline status indicators&#x20;
-- **Global State Management**: Efficient UI updates using Zustand&#x20;
+- **Global State Management**: Efficient UI updates using React Context&#x20;
 - **Robust Error Handling**: Comprehensive error management on client and server&#x20;
 - **Deployment Guide**: Includes steps for deploying the app to production&#x20;
 
@@ -28,11 +28,11 @@ A MERN‑stack (MongoDB, Express, React, Node.js) real-time chat application bui
 
 - **State Management**
 
-  - Shared state with Zustand for user & chat session tracking
+  - Shared state with React Context for user & chat session tracking
 
 - **Responsive UI**
 
-  - Clean, modern interface built with TailwindCSS and DaisyUI
+  - Clean, modern interface built with TailwindCSS
 
 - **Error Handling**
 
@@ -49,12 +49,12 @@ A MERN‑stack (MongoDB, Express, React, Node.js) real-time chat application bui
 1. **Clone the repo**
 
    ```bash
-   https://github.com/nitishdeshmukh/vaani-app.git
+   https://github.com/nitishdeshmukh/vaani-chat-app
 
    ```
 
 2. **Configure environment variables (.env)**
-   Create a `.env` in **backend/** with these keys:
+   Create a `.env` in **server/** with these keys:
 
    ```
    MONGODB_URI=your_mongo_connection_string
@@ -69,18 +69,17 @@ A MERN‑stack (MongoDB, Express, React, Node.js) real-time chat application bui
 3. **Install dependencies**
 
    ```bash
-   npm install
-   cd backend && npm install
-   cd ../frontend && npm install
+   cd server && npm install
+   cd ../client && npm install
    ```
 
 4. **Development mode**
 
    ```bash
-   # In backend/
+   # In server/
    npm run dev
 
-   # In frontend/
+   # In client/
    npm run dev
    ```
 
@@ -88,11 +87,11 @@ A MERN‑stack (MongoDB, Express, React, Node.js) real-time chat application bui
 
    ```bash
    # Build client
-   cd frontend
+   cd client
    npm run build
 
    # Run server to serve built files
-   cd ../backend
+   cd ../server
    npm start
    ```
 
