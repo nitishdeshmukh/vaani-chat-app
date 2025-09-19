@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import toast from "react-hot-toast";
 import assets from "../assets/assets";
-import { formatMessageTime } from "../lib/utils";
+import { cn, formatMessageTime } from "../lib/utils";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 import { FaTrashAlt, FaEllipsisV } from "react-icons/fa";
@@ -33,9 +33,11 @@ const ChatContainer = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [mobileMenuMsg, setMobileMenuMsg] = useState(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
 
   const scrollToBottom = useCallback(() => {
     if (messagesContainerRef.current) {
+      // flex-col-reverse means scrollTop=0 is bottom
       messagesContainerRef.current.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -46,8 +48,8 @@ const ChatContainer = () => {
   const handleScroll = useCallback(() => {
     if (messagesContainerRef.current) {
       const { scrollTop } = messagesContainerRef.current;
-      // Show scroll button if scrolled down more than 100px
       setShowScrollButton(scrollTop > 100);
+      setAutoScrollEnabled(scrollTop === 0); // enable auto-scroll only if at bottom
     }
   }, []);
 
@@ -56,7 +58,9 @@ const ChatContainer = () => {
     if (input.trim() === "") return;
     await sendMessage({ text: input.trim() });
     setInput("");
-    scrollToBottom();
+    if (autoScrollEnabled) {
+      scrollToBottom();
+    }
   };
 
   const handleSendImage = async (e) => {
@@ -70,6 +74,9 @@ const ChatContainer = () => {
     reader.onloadend = async () => {
       await sendMessage({ image: reader.result });
       e.target.value = "";
+      if (autoScrollEnabled) {
+        scrollToBottom();
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -109,21 +116,30 @@ const ChatContainer = () => {
       getMessages(selectedUser._id).finally(() => {
         setTimeout(() => {
           setIsLoading(false);
-          scrollToBottom();
+          if (autoScrollEnabled) {
+            scrollToBottom();
+          }
         }, 50);
       });
     }
-  }, [selectedUser, getMessages, scrollToBottom]);
+  }, [selectedUser, getMessages, scrollToBottom, autoScrollEnabled]);
 
-  // Scroll when messages change
+  // Scroll when messages change but only if autoScrollEnabled
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, scrollToBottom]);
+    if (autoScrollEnabled) {
+      scrollToBottom();
+    }
+  }, [messages, scrollToBottom, autoScrollEnabled]);
 
   if (isLoading && messages.length === 0) {
     return (
       <div className="h-full flex items-center justify-center bg-gray-900/50">
-        <div className="animate-pulse text-gray-400">Loading messages...</div>
+        <div
+          className={cn(
+            "animate-spin w-10 h-10 border-4 border-neutral-50/50",
+            "border-t-transparent rounded-full mx-2.5"
+          )}
+        ></div>
       </div>
     );
   }

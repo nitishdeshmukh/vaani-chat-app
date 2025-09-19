@@ -82,7 +82,7 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <AuroraText
+        {/* <AuroraText
           className="font-semibold p-2 rounded-full cursor-pointer text-base max-sm:text-sm border-2 border-gray-600 text-center"
           colors={["#8B5CF6", "#A78BFA", "#06B6D4", "#3B82F6"]}
           speed={1.75}
@@ -97,7 +97,7 @@ const Sidebar = () => {
           }}
         >
           Ask Vaani AI
-        </AuroraText>
+        </AuroraText> */}
 
         {sortedUsers.map((user, index) => (
           <div
