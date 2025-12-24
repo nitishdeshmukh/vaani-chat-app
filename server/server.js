@@ -63,6 +63,10 @@ await connectDB();
 
 const PORT = process.env.PORT || 5000; // fallback for local dev
 
+app.get("/", (request, response) => {
+  response.send("API Working");
+});
+
 server.listen(PORT, () => {
   console.log(` Server is running on port: ${PORT}`);
 });
