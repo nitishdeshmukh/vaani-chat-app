@@ -1,0 +1,7 @@
+# tokensave
+.tokensave/
+.tokensave/*
+.tokensave/**
+
+# macOS
+.DS_Store
